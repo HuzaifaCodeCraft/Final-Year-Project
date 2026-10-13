@@ -163,6 +163,19 @@ app.get('/api/subjects', (req, res) => {
         res.json(rows);
     });
 });
+// Database Auto-Populate Logic
+db.serialize(() => {
+    db.get("SELECT COUNT(*) as count FROM students", (err, row) => {
+        if (row && row.count === 0) {
+            console.log("Seeding Database for Production...");
+            const stmt = db.prepare(`INSERT INTO students (rollNo, name, className, feeStatus) VALUES (?, ?, ?, ?)`);
+            for (let i = 1; i <= 181; i++) {
+                stmt.run(`ROLL-${100 + i}`, `Student ${i}`, `Class ${(i % 10) + 1}`, i % 2 === 0 ? 'Paid' : 'Unpaid');
+            }
+            stmt.finalize();
+        }
+    });
+});
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`EduFlow Enterprise Server running on port ${PORT}`);
