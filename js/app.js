@@ -3,7 +3,7 @@ let studentsData = [];
 let attendanceData = {};
 let academicSubjects = [];
 
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:3000/api' : '/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     initApp();
