@@ -163,7 +163,7 @@ app.get('/api/subjects', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
+PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`EduFlow Enterprise Server running on port ${PORT}`);
 });
