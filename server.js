@@ -10,11 +10,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-const db = new sqlite3.Database('./eduflow.db', (err) => {
+const dbPath = path.join(__dirname, 'eduflow.db');
+const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Error opening database:', err.message);
     } else {
-        console.log('Connected to SQLite database successfully.');
+        console.log('Connected to SQLite database successfully at:', dbPath);
     }
 });
 
